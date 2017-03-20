@@ -18,13 +18,14 @@ def first_last(webpage):
    lines.reverse()
    print first_non_blank(lines)
 
-def download(url = 'http://www', process = first_non_blank):
+def download(url = 'http://www.baidu.com', process = first_non_blank):
     try:
-        retval = urlretrieve(url)[0]
+      retval = urlretrieve(url)[0]
     except IOError:
-        retval = None
+      print 'error'
+      retval = None
     if retval:
-        process(retval)
+      process(retval)
 
 if __name__ == '__main__':
     download()
