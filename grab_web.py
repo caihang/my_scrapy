@@ -1,31 +1,20 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
-from urllib import urlretrieve
+import urllib
+import urllib2
+import re
 
-def first_non_blank(lines):
-    for eachline in lines:
-        if not eachline.strip():
-            continue
-        else:
-            return eachline
-
-def first_last(webpage):
-   f = open(webpage)
-   lines = f.readlines()
-   f.close()
-   print first_non_blank(lines)
-   lines.reverse()
-   print first_non_blank(lines)
-
-def download(url = 'http://www.baidu.com', process = first_non_blank):
-    try:
-      retval = urlretrieve(url)[0]
-    except IOError:
-      print 'error'
-      retval = None
-    if retval:
-      process(retval)
+def get_image(url):
+  reg = re.compile(r'img.src="(.*?)"')
+  res = re.findall(reg, url)
+  count = 0
+  for data in res:
+    count += 1
+    urllib.urlretrieve(data, '%s.jpg'%count)
 
 if __name__ == '__main__':
-    download()
+  user_input_url = raw_input('input url:')
+  open_url = urllib2.urlopen(user_input_url)
+  read_url = open_url.read()
+  get_image(read_url)
