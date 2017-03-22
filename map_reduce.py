@@ -4,6 +4,9 @@
 import os
 import sys
 
+# def map_func(x):
+#     return x+2
+    
 def reduce_func(x, y):
     return x*10 + y
 
